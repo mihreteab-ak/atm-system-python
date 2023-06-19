@@ -3,7 +3,7 @@ def get_int(message):
     try:
         num = int(num)
     except ValueError:
-        print("Not an integer!\n")
+        print("Please, use numbers only!\n")
         get_int(message)
     else:
         return num
@@ -12,7 +12,7 @@ def get_acc(database):
     while True:
         acc = get_int("\nPlease enter your account number: ")
         if acc != database[0][0]:
-            print('Invalid account')
+            print("Account doesn't exist!")
             continue
         return acc
 
@@ -25,7 +25,7 @@ def get_pin(database, userid):
     while True:
         pin = get_int("\nEnter your PIN: ")
         if pin != database[userid][1]:
-            print('Invalid PIN\n')
+            print('Wrong PIN')
             continue
         return pin
 
@@ -66,7 +66,7 @@ def withdraw(database, atmcash, userid):
         return amount
 
 def balance(userid):
-    print(f"\nYour balance is {database[userid][2]}\n")
+    print(f"\nYour balance is ${database[userid][2]}")
 
 def deposit():
     amount = get_int("\nEnter a deposit amount or type 0 to cancel: ")
@@ -86,6 +86,7 @@ def deposit():
 def exit():
     print("\nThanks for your time!")
     return "break"
+
 
 while True:
     print("\nWelcome")
@@ -119,7 +120,7 @@ while True:
                 atmcash -= amount
                 database[userid][2] -= amount
                 print("\nYou have successfully taken out your money")
-                print(f"Your account balance is {database[userid][2]}\n")
+                print(f"Your account balance is ${database[userid][2]}\n")
             else:
                 continue
         elif choice == 3:
@@ -131,4 +132,4 @@ while True:
             if command == "break":
                 break
         else:
-            print('Invalid response')
+            print('Please, pick from the choices shown below!')
