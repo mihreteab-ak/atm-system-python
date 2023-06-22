@@ -11,10 +11,12 @@ def get_int(message):
 def get_acc(database):
     while True:
         acc = get_int("\nPlease enter your account number: ")
-        if acc != database[0][0]:
-            print("Account doesn't exist!")
-            continue
-        return acc
+        acc_nums = []
+        for i in range(len(database)): 
+            acc_nums += [database[i][0]]
+        if acc in acc_nums:
+            return acc
+        print("Account doesn't exist!")
 
 def find_userid(database, acc):
     for i in range(len(database)):
@@ -91,18 +93,13 @@ def exit():
 while True:
     print("\nWelcome")
     database = [
-        [12345, 54321, 1200]
+        [12345, 54321, 1200],
+        [47531, 13574, 2000],
         ]
     atmcash = 1000
     acc = get_acc(database)
     userid = find_userid(database, acc)
     pin = get_pin(database, userid)
-
-    if authenticate(acc, pin, database, userid):
-        pass
-    else:
-        print("Wrong Password!\n")
-        break
 
     while True:
         print("\nMain menu")
