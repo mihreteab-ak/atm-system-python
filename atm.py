@@ -16,7 +16,8 @@ def get_acc(database):
             acc_nums += [database[i][0]]
         if acc in acc_nums:
             return acc
-        print("Account doesn't exist!")
+        else:
+            print("Account doesn't exist!")
 
 def find_userid(database, acc):
     for i in range(len(database)):
