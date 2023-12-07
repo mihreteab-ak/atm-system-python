@@ -126,8 +126,6 @@ while True:
             if amount == "continue":
                 continue
         elif choice == 4:
-            command = exit()
-            if command == "break":
-                break
+            exit("Thanks for your time!")
         else:
             print('Please, pick from the choices shown below!')
