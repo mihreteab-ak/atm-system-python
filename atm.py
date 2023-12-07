@@ -1,12 +1,13 @@
 def get_int(message):
     num = input(message)
-    try:
-        num = int(num)
-    except ValueError:
-        print("Please, use numbers only!\n")
-        get_int(message)
-    else:
-        return num
+    while True:
+        try:
+            num = int(num)
+        except ValueError:
+            print("Please, use numbers only!\n")
+            continue
+        else:
+            return num
 
 def get_acc(database):
     while True:
@@ -68,7 +69,7 @@ def withdraw(database, atmcash, userid):
             break
         return amount
 
-def balance(userid):
+def balance(userid, database):
     print(f"\nYour balance is ${database[userid][2]}")
 
 def deposit():
@@ -86,46 +87,48 @@ def deposit():
             amount = "break"
     return amount
 
-def exit():
-    print("\nThanks for your time!")
-    return "break"
 
-
-while True:
-    print("\nWelcome")
-    database = [
-        [12345, 54321, 1200],
-        [47531, 13574, 2000],
-        ]
-    atmcash = 1000
-    acc = get_acc(database)
-    userid = find_userid(database, acc)
-    pin = get_pin(database, userid)
-
+def main():
     while True:
-        print("\nMain menu")
-        print("  1 - View my balance")
-        print("  2 - Withdraw cash")
-        print("  3 - Deposit funds")
-        print("  4 - Exit")
-        choice = get_int("Enter your choice: ")
+        print("\nWelcome")
+        database = [
+            [12345, 54321, 1200],
+            [47531, 13574, 2000],
+            ]
+        atmcash = 1000
+        acc = get_acc(database)
+        userid = find_userid(database, acc)
+        pin = get_pin(database, userid)
 
-        if choice == 1:
-            balance(userid)
-        elif choice == 2:
-            amount = withdraw(database, atmcash, userid)
-            if amount != "continue":
-                atmcash -= amount
-                database[userid][2] -= amount
-                print("\nYou have successfully taken out your money")
-                print(f"Your account balance is ${database[userid][2]}\n")
+        while True:
+            print("\nMain menu")
+            print("  1 - View my balance")
+            print("  2 - Withdraw cash")
+            print("  3 - Deposit funds")
+            print("  4 - Exit")
+            choice = get_int("Enter your choice: ")
+
+            if choice == 1:
+                balance(userid, database)
+            elif choice == 2:
+                amount = withdraw(database, atmcash, userid)
+                if amount != "continue":
+                    atmcash -= amount
+                    database[userid][2] -= amount
+                    print("\nYou have successfully taken out your money")
+                    print(f"Your account balance is ${database[userid][2]}\n")
+                else:
+                    continue
+            elif choice == 3:
+                amount = deposit()
+                if amount == "continue":
+                    continue
+            elif choice == 4:
+                print("Thanks for your time!")
+                exit()
             else:
-                continue
-        elif choice == 3:
-            amount = deposit()
-            if amount == "continue":
-                continue
-        elif choice == 4:
-            exit("Thanks for your time!")
-        else:
-            print('Please, pick from the choices shown below!')
+                print('Please, pick from the choices shown below!')
+
+
+if __name__ == "__main__":
+    main()
