@@ -1,3 +1,4 @@
+# prompts an input and checks if it's an integer
 def get_int(message):
     num = input(message)
     while True:
