@@ -9,6 +9,7 @@ def get_int(message):
         else:
             return num
 
+# prompts for user's account and retrieves it
 def get_acc(database):
     while True:
         acc = get_int("\nPlease enter your account number: ")
